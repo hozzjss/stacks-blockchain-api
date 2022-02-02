@@ -41,6 +41,7 @@ import {
   DbChainTip,
   NftHoldingInfoWithTxMetadata,
   NftEventWithTxMetadata,
+  DbEventTypeId,
 } from './common';
 import { logger, FoundOrNot } from '../helpers';
 import { AddressTokenOfferingLocked, TransactionType } from '@stacks/stacks-blockchain-api-types';
@@ -813,6 +814,15 @@ export class MemoryDataStore
     limit: number;
     offset: number;
   }): Promise<FoundOrNot<DbSmartContract[]>> {
+    throw new Error('Method not implemented.');
+  }
+
+  getAddressEvents(args: {
+    principal: string;
+    eventTypeFilter: DbEventTypeId[];
+    limit: number;
+    offset: number;
+  }): Promise<{ results: DbEvent[] }> {
     throw new Error('Method not implemented.');
   }
 }
