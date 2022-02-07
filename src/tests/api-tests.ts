@@ -9984,7 +9984,7 @@ describe('api tests', () => {
           },
         },
         {
-          event_index: 0,
+          event_index: 4,
           event_type: 'stx_lock',
           tx_id: '0x1234',
           stx_lock_event: {
@@ -10078,7 +10078,7 @@ describe('api tests', () => {
           },
         },
         {
-          event_index: 0,
+          event_index: 4,
           event_type: 'stx_lock',
           tx_id: '0x1234',
           stx_lock_event: {
@@ -10162,7 +10162,7 @@ describe('api tests', () => {
           },
         },
         {
-          event_index: 0,
+          event_index: 4,
           event_type: 'stx_lock',
           tx_id: '0x1234',
           stx_lock_event: {
@@ -10244,7 +10244,7 @@ describe('api tests', () => {
           },
         },
         {
-          event_index: 0,
+          event_index: 4,
           event_type: 'stx_lock',
           tx_id: '0x1234',
           stx_lock_event: {
