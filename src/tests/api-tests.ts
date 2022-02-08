@@ -9932,7 +9932,7 @@ describe('api tests', () => {
 
     await db.update(block);
     const addressEvents = await supertest(api.server).get(
-      `/extended/v1/events/address/${address}?type=stx_asset&type=smart_contract_log&type=non_fungible_token_asset&type=fungible_token_asset&type=stx_lock`
+      `/extended/v1/tx/events?address=${address}&type=stx_asset&type=smart_contract_log&type=non_fungible_token_asset&type=fungible_token_asset&type=stx_lock`
     );
     const expectedResponse = {
       limit: 96,
@@ -10002,7 +10002,9 @@ describe('api tests', () => {
 
   test('Address events: empty events returned', async () => {
     const address = 'address-not-found-in-db';
-    const addressEvents = await supertest(api.server).get(`/extended/v1/events/address/${address}`);
+    const addressEvents = await supertest(api.server).get(
+      `/extended/v1/tx/events?address=${address}`
+    );
     const expectedResponse = {
       limit: 96,
       offset: 0,
@@ -10027,7 +10029,9 @@ describe('api tests', () => {
       .build();
 
     await db.update(block);
-    const addressEvents = await supertest(api.server).get(`/extended/v1/events/address/${address}`);
+    const addressEvents = await supertest(api.server).get(
+      `/extended/v1/tx/events?address=${address}`
+    );
     const expectedResponse = {
       limit: 96,
       offset: 0,
@@ -10110,7 +10114,7 @@ describe('api tests', () => {
 
     await db.update(block);
     const addressEvents = await supertest(api.server).get(
-      `/extended/v1/events/tx/${txId}?type=stx_asset&type=smart_contract_log&type=non_fungible_token_asset&type=fungible_token_asset&type=stx_lock`
+      `/extended/v1/tx/events?txId=${txId}&type=stx_asset&type=smart_contract_log&type=non_fungible_token_asset&type=fungible_token_asset&type=stx_lock`
     );
     const expectedResponse = {
       limit: 96,
@@ -10193,7 +10197,7 @@ describe('api tests', () => {
       .build();
 
     await db.update(block);
-    const addressEvents = await supertest(api.server).get(`/extended/v1/events/tx/${txId}`);
+    const addressEvents = await supertest(api.server).get(`/extended/v1/tx/events?txId=${txId}`);
     const expectedResponse = {
       limit: 96,
       offset: 0,
@@ -10262,7 +10266,7 @@ describe('api tests', () => {
 
   test('Tx events: empty events returned', async () => {
     const txId = '0x1234';
-    const addressEvents = await supertest(api.server).get(`/extended/v1/events/tx/${txId}`);
+    const addressEvents = await supertest(api.server).get(`/extended/v1/tx/events?txId=${txId}`);
     const expectedResponse = {
       limit: 96,
       offset: 0,
@@ -10276,7 +10280,17 @@ describe('api tests', () => {
   test('Tx events: invalid type', async () => {
     const txId = '0x1234';
     const addressEvents = await supertest(api.server).get(
-      `/extended/v1/events/tx/${txId}type=invalid`
+      `/extended/v1/tx/events?txId=${txId}&type=invalid`
+    );
+
+    expect(addressEvents.status).toBe(400);
+  });
+
+  test('mutually exclusive query params', async () => {
+    const txId = '0x1234';
+    const address = 'ST3RJJS96F4GH90XDQQPFQ2023JVFNXPWCSV6BN1Z';
+    const addressEvents = await supertest(api.server).get(
+      `/extended/v1/tx/events?txId=${txId}&address=${address}&type=invalid`
     );
 
     expect(addressEvents.status).toBe(400);
