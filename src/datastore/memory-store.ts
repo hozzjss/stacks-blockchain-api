@@ -818,16 +818,7 @@ export class MemoryDataStore
   }
 
   getFilteredAddressEvents(args: {
-    principal: string;
-    eventTypeFilter: DbEventTypeId[];
-    limit: number;
-    offset: number;
-  }): Promise<{ results: DbEvent[] }> {
-    throw new Error('Method not implemented.');
-  }
-
-  getFilteredTxEvents(args: {
-    txId: string;
+    addressOrTxId: { address: string; txId: undefined } | { address: undefined; txId: string };
     eventTypeFilter: DbEventTypeId[];
     limit: number;
     offset: number;
