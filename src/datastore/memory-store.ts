@@ -817,7 +817,7 @@ export class MemoryDataStore
     throw new Error('Method not implemented.');
   }
 
-  getFilteredAddressEvents(args: {
+  getTransactionEvents(args: {
     addressOrTxId: { address: string; txId: undefined } | { address: undefined; txId: string };
     eventTypeFilter: DbEventTypeId[];
     limit: number;
