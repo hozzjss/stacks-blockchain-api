@@ -256,6 +256,7 @@ export function createTxRouter(db: DataStore): express.Router {
 
   router.get(
     '/events',
+    cacheHandler,
     asyncHandler(async (req, res, next) => {
       const limit = parseTxQueryEventsLimit(req.query['limit'] ?? 96);
       const offset = parsePagingQueryInput(req.query['offset'] ?? 0);
@@ -270,6 +271,7 @@ export function createTxRouter(db: DataStore): express.Router {
         limit,
       });
       const response = { limit, offset, events: results.map(e => parseDbEvent(e)) };
+      setChainTipCacheHeaders(res);
       res.status(200).json(response);
     })
   );
