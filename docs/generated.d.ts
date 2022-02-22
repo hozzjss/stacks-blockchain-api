@@ -764,12 +764,6 @@ export type NonFungibleTokenHolding = NonFungibleTokenHoldingWithTxId | NonFungi
  * Describes the minting of a Non-Fungible Token
  */
 export type NonFungibleTokenMint = NonFungibleTokenMintWithTxId | NonFungibleTokenMintWithTxMetadata;
-export type TransactionEvent1 =
-  | TransactionEventSmartContractLog
-  | TransactionEventStxLock
-  | TransactionEventStxAsset
-  | TransactionEventFungibleAsset
-  | TransactionEventNonFungibleAsset;
 /**
  * Status of the transaction
  */
@@ -3387,7 +3381,7 @@ export interface GetRawTransactionResult {
 export interface TransactionEventsResponse {
   limit: number;
   offset: number;
-  results: TransactionEvent1[];
+  results: TransactionEvent[];
 }
 /**
  * GET request that returns transactions
