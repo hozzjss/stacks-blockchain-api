@@ -2974,6 +2974,7 @@ export class PgDataStore
       const total = await client.query<{ count: number }>(`
         SELECT block_count AS count FROM chain_tip
       `);
+      console.log('printing total rows here: ', total.rows);
       const results = await client.query<BlockQueryResult>(
         `
         SELECT ${BLOCK_COLUMNS}
@@ -2985,6 +2986,7 @@ export class PgDataStore
         `,
         [limit, offset]
       );
+      console.log('printing results here: ', results);
       const parsed = results.rows.map(r => this.parseBlockQueryResult(r));
       return { results: parsed, total: total.rows[0].count } as const;
     });
