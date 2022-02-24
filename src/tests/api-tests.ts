@@ -8944,7 +8944,6 @@ describe('api tests', () => {
       execution_cost_write_count: 0,
       execution_cost_write_length: 0,
     };
-    // await db.updateBlock(client, block);
     const tx: DbTx = {
       tx_id: '0x1234',
       tx_index: 4,
@@ -8979,7 +8978,6 @@ describe('api tests', () => {
       execution_cost_write_count: 0,
       execution_cost_write_length: 0,
     };
-    // await db.updateTx(client, tx);
     await db.update({
       block,
       microblocks: [],
